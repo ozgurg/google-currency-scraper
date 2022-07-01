@@ -12,6 +12,7 @@
         "sourceType": "module"
     },
     "rules": {
+        "require-jsdoc": "off",
         "quotes": [
             "error",
             "double"
