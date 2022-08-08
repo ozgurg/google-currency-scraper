@@ -42,5 +42,8 @@
         "*.js": [
             "eslint"
         ]
+    },
+    "dependencies": {
+        "puppeteer": "^16.1.0"
     }
 }
