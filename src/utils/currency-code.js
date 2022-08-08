@@ -188,7 +188,7 @@ const CurrencyCode = {
 };
 
 /**
- * @param {CurrencyCode} code
+ * @param {CurrencyCode|string} code
  * @returns {boolean}
  */
 const isValidCurrencyCode = code => code in CurrencyCode;

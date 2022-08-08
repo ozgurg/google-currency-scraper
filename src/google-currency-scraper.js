@@ -5,8 +5,8 @@ import { objectToQueryString } from "./utils/object-to-query-string.js";
 
 /**
  * @param {object} options
- * @param {CurrencyCode} options.from
- * @param {CurrencyCode} options.to
+ * @param {CurrencyCode|string} options.from
+ * @param {CurrencyCode|string} options.to
  * @returns {Promise<{rate: number, from: CurrencyCode, to: CurrencyCode}>}
  */
 const googleCurrencyScraper = async ({ from, to }) => {
