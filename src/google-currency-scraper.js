@@ -11,11 +11,11 @@ import { objectToQueryString } from "./utils/object-to-query-string.js";
  */
 const googleCurrencyScraper = async ({ from, to }) => {
     if (!isValidCurrencyCode(from)) {
-        throw new Error(`Invalid from currency code: ${from}`);
+        throw new Error(`Invalid 'from' currency code: ${from}`);
     }
 
     if (!isValidCurrencyCode(to)) {
-        throw new Error(`Invalid to currency code: ${to}`);
+        throw new Error(`Invalid 'to' currency code: ${to}`);
     }
 
     if (from === to) {
