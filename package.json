@@ -30,12 +30,12 @@
         "currency api"
     ],
     "devDependencies": {
-        "@types/jest": "^28.1.4",
-        "eslint": "^8.18.0",
+        "@types/jest": "^28.1.6",
+        "eslint": "^8.21.0",
         "eslint-config-google": "^0.14.0",
-        "eslint-plugin-jsdoc": "^39.3.4",
+        "eslint-plugin-jsdoc": "^39.3.6",
         "husky": "^8.0.1",
-        "jest": "^28.1.2",
+        "jest": "^28.1.3",
         "lint-staged": "^13.0.3"
     },
     "lint-staged": {
