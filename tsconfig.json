@@ -1,0 +1,13 @@
+{
+    "include": [
+        "**/*.js"
+    ],
+    "exclude": [
+        "**/*.test.js"
+    ],
+    "compilerOptions": {
+        "declaration": true,
+        "emitDeclarationOnly": true,
+        "allowJs": true
+    }
+}
