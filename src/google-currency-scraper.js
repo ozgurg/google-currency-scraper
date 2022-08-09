@@ -42,7 +42,7 @@ const googleCurrencyScraper = async ({ from, to }) => {
     // To lighter page and faster load times, load only document
     await ensurePageLoadOnlyDocument(page);
 
-    await goToGoogleCurrencySearchResult(page, from, to);
+    await goToGoogleCurrencySearchResult(page, { from, to });
 
     const exchangeRate = await parseExchangeRate(page);
 
