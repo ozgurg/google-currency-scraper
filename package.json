@@ -29,6 +29,9 @@
         "google scraper",
         "currency api"
     ],
+    "dependencies": {
+        "puppeteer": "^16.1.0"
+    },
     "devDependencies": {
         "@types/jest": "^28.1.6",
         "eslint": "^8.21.0",
@@ -43,7 +46,4 @@
             "eslint"
         ]
     },
-    "dependencies": {
-        "puppeteer": "^16.1.0"
-    }
 }
