@@ -1,5 +1,11 @@
 // TODO: Make *'s in JSDoc better where possible
-import { closeBrowser, ensurePageLoadOnlyDocument, launchBrowser, openNewPage } from "./utils/browser.js";
+import {
+    closeBrowser,
+    emulateDevice,
+    ensurePageLoadOnlyDocument,
+    launchBrowser,
+    openNewPage
+} from "./utils/browser.js";
 import { CurrencyCode, isValidCurrencyCode } from "./utils/currency-code.js";
 import { objectToQueryString } from "./utils/object-to-query-string.js";
 
@@ -29,6 +35,9 @@ const googleCurrencyScraper = async ({ from, to }) => {
     const browser = await launchBrowser();
 
     const page = await openNewPage(browser);
+
+    // To lighter page and faster load times, I emulate a mobile device
+    await emulateDevice(page, "iPhone 7");
 
     await ensurePageLoadOnlyDocument(page);
 
