@@ -65,6 +65,13 @@ const closeBrowser = browser => browser.close();
 
 /**
  * @param {*} page
+ * @param {string} device
+ * @returns {Promise<void>}
+ */
+const emulateDevice = (page, device) => page.emulate(puppeteer.devices[device]);
+
+/**
+ * @param {*} page
  */
 const ensurePageLoadOnlyDocument = async page => {
     await page.setRequestInterception(true);
@@ -82,5 +89,6 @@ export {
     launchBrowser,
     openNewPage,
     closeBrowser,
+    emulateDevice,
     ensurePageLoadOnlyDocument
 };
