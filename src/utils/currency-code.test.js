@@ -6,7 +6,7 @@ describe("utils/currency-code", () => {
             expect(typeof CurrencyCode).toBe("object");
         });
 
-        it("should same key value pair", () => {
+        it("should have same key value pair", () => {
             for (const [key, value] of Object.entries(CurrencyCode)) {
                 expect(key).toBe(value);
             }

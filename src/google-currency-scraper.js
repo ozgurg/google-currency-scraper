@@ -10,9 +10,9 @@ import { CurrencyCode, isValidCurrencyCode } from "./utils/currency-code.js";
 import { objectToQueryString } from "./utils/object-to-query-string.js";
 
 /**
- * @param {object} options
- * @param {CurrencyCode|string} options.from
- * @param {CurrencyCode|string} options.to
+ * @param {object} params
+ * @param {CurrencyCode|string} params.from
+ * @param {CurrencyCode|string} params.to
  * @returns {Promise<{rate: number, from: CurrencyCode|string, to: CurrencyCode|string}>}
  */
 const googleCurrencyScraper = async ({ from, to }) => {
@@ -57,11 +57,12 @@ const googleCurrencyScraper = async ({ from, to }) => {
 
 /**
  * @param {*} page
- * @param {CurrencyCode|string} from
- * @param {CurrencyCode|string} to
+ * @param {object} params
+ * @param {CurrencyCode|string} params.from
+ * @param {CurrencyCode|string} params.to
  * @returns {Promise<*|null>}
  */
-async function goToGoogleCurrencySearchResult(page, from, to) {
+async function goToGoogleCurrencySearchResult(page, { from, to }) {
     const qs = objectToQueryString({
         q: `1+${from}+to+${to}`,
         hl: "en" // Make sure to use the English language to avoid any weirdness
