@@ -39,6 +39,7 @@ const googleCurrencyScraper = async ({ from, to }) => {
     // To lighter page and faster load times, I emulate a mobile device
     await emulateDevice(page, "iPhone 7");
 
+    // To lighter page and faster load times, load only document
     await ensurePageLoadOnlyDocument(page);
 
     await goToGoogleCurrencySearchResult(page, from, to);
