@@ -47,8 +47,8 @@ const googleCurrencyScraper = async ({ from, to }) => {
 
 /**
  * @param {*} page
- * @param {CurrencyCode} from
- * @param {CurrencyCode} to
+ * @param {CurrencyCode|string} from
+ * @param {CurrencyCode|string} to
  * @returns {Promise<*|null>}
  */
 async function goToGoogleCurrencySearchResult(page, from, to) {
