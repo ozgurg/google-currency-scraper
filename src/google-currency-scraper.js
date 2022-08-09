@@ -20,9 +20,9 @@ const googleCurrencyScraper = async ({ from, to }) => {
 
     if (from === to) {
         return {
-            rate: 1,
             from,
-            to
+            to,
+            rate: 1
         };
     }
 
