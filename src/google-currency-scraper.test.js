@@ -1,4 +1,5 @@
 import googleCurrencyScraper from "./google-currency-scraper.js";
+import { jest } from "@jest/globals";
 
 jest.setTimeout(10000);
 
