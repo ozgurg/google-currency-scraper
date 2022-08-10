@@ -1,5 +1,7 @@
 import googleCurrencyScraper from "./google-currency-scraper.js";
 
+jest.setTimeout(10000);
+
 describe("google-currency-scraper", () => {
     it("should throw an error if 'from' is invalid", async () => {
         await expect(async () => {
