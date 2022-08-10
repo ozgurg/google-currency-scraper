@@ -1,6 +1,6 @@
 {
     "name": "google-currency-scraper",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "google-currency-scraper, scrapes exchange rates from Google search results",
     "license": "MIT",
     "type": "module",
