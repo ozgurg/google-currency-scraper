@@ -1,19 +1,14 @@
 // TODO: Make *'s in JSDoc better where possible
-import {
-    closeBrowser,
-    emulateDevice,
-    ensurePageLoadOnlyDocument,
-    launchBrowser,
-    openNewPage
-} from "./utils/browser.js";
+import { closeBrowser, emulateDevice, ensurePageLoadOnlyDocument, launchBrowser, openNewPage } from "./utils/browser.js";
 import { CurrencyCode, isValidCurrencyCode } from "./utils/currency-code.js";
 import { objectToQueryString } from "./utils/object-to-query-string.js";
+import { getDate, parseAndNormalizeDateInSearchResult } from "./utils/date.js";
 
 /**
  * @param {object} params
  * @param {CurrencyCode|string} params.from
  * @param {CurrencyCode|string} params.to
- * @returns {Promise<{rate: number, from: CurrencyCode|string, to: CurrencyCode|string}>}
+ * @returns {Promise<{from: CurrencyCode|string, to: CurrencyCode|string, rate: number, dateUpdated: string}>}
  */
 const googleCurrencyScraper = async ({ from, to }) => {
     if (!isValidCurrencyCode(from)) {
@@ -28,7 +23,8 @@ const googleCurrencyScraper = async ({ from, to }) => {
         return {
             from,
             to,
-            rate: 1
+            rate: 1,
+            dateUpdated: getDate()
         };
     }
 
@@ -44,14 +40,15 @@ const googleCurrencyScraper = async ({ from, to }) => {
 
     await goToGoogleCurrencySearchResult(page, { from, to });
 
-    const exchangeRate = await parseExchangeRate(page);
+    const result = await parseResult(page);
 
     await closeBrowser(browser);
 
     return {
         from,
         to,
-        rate: exchangeRate
+        rate: result.rate,
+        dateUpdated: parseAndNormalizeDateInSearchResult(result.dateUpdated)
     };
 };
 
@@ -74,12 +71,15 @@ async function goToGoogleCurrencySearchResult(page, { from, to }) {
 
 /**
  * @param {*} page
- * @returns {Promise<number>}
+ * @returns {Promise<{rate: number, dateUpdated: string}>}
  */
-async function parseExchangeRate(page) {
+async function parseResult(page) {
     return page.$eval(
         "[data-exchange-rate]",
-        element => parseFloat(element.getAttribute("data-exchange-rate"))
+        element => ({
+            rate: parseFloat(element.getAttribute("data-exchange-rate")),
+            dateUpdated: element.nextSibling.querySelector("span").textContent
+        })
     );
 }
 
