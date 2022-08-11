@@ -3,8 +3,7 @@
 
 # Google Currency Scraper
 
-`google-currency-scraper` uses [Puppeteer](https://github.com/puppeteer/puppeteer) under the hood. It goes
-Google '1 USD to TRY' search result and returns the value of `[data-exchange-rate]` selector in its HTML.
+`google-currency-scraper` goes Google '1 USD to TRY' (for example) search result and scrape exchange rate and last updated date for you by using [Puppeteer](https://github.com/puppeteer/puppeteer) under the hood.
 
 ## Install
 
@@ -13,6 +12,8 @@ npm install google-currency-scraper
 ```
 
 ## Usage
+
+_First response might be slow._
 
 ```javascript
 import googleCurrencyScraper, { CurrencyCode } from "google-currency-scraper";
@@ -25,7 +26,8 @@ const currency = await googleCurrencyScraper({
 // {
 //     from: "USD",
 //     to: "TRY",
-//     rate: 17.9187
+//     rate: 17.9539,
+//     dateUpdated: "2022-08-11T23:24:00.000Z"
 // }
 ```
 
