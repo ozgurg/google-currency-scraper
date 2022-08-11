@@ -30,6 +30,7 @@
         "currency api"
     ],
     "dependencies": {
+        "dayjs": "^1.11.4",
         "puppeteer": "^16.1.0"
     },
     "devDependencies": {
