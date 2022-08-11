@@ -3,6 +3,7 @@ import {
     dateHelper,
     formatDate,
     getCurrentYear,
+    getDate,
     parseAndNormalizeDateInSearchResult,
     setYear
 } from "./date.js";
@@ -14,6 +15,21 @@ describe("utils/date", () => {
     describe("dateHelper", () => {
         it("should be a Day.js instance", () => {
             // TODO: Make sure it is a Day.js instance
+        });
+    });
+
+    describe("getDate", () => {
+        beforeAll(() => {
+            const mockDate = new Date("10 Aug 2022");
+            global.Date = jest.fn().mockImplementation(() => mockDate);
+        });
+
+        it("should return current date in ISO format", () => {
+            expect(getDate(new Date())).toBe("2022-08-09T21:00:00.000Z");
+        });
+
+        afterAll(() => {
+            global.Date = date;
         });
     });
 

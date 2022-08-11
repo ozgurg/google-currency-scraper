@@ -6,9 +6,15 @@ import dayjs from "dayjs";
 const dateHelper = dayjs;
 
 /**
+ * @param {Date} date
+ * @returns {string}
+ */
+const getDate = (date = new Date()) => dateHelper(date).toISOString();
+
+/**
  * @returns {number}
  */
-const getCurrentYear = () => new Date().getFullYear();
+const getCurrentYear = () => dateHelper().year();
 
 /**
  * @param {string} dateString
@@ -44,6 +50,7 @@ const parseAndNormalizeDateInSearchResult = dateString => {
 
 export {
     dateHelper,
+    getDate,
     getCurrentYear,
     formatDate,
     setYear,
