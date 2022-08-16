@@ -25,7 +25,7 @@ describe("google-currency-scraper", () => {
     });
 
     it("should return '1' rate without scraping Google if 'from' and 'to' are the same", async () => {
-        const mockDate = new Date("10 Aug 2022");
+        const mockDate = new Date("10 Aug 2022 UTC");
         global.Date = jest.fn().mockImplementation(() => mockDate);
 
         const scraper = await googleCurrencyScraper({
@@ -45,7 +45,7 @@ describe("google-currency-scraper", () => {
     });
 
     it("should scrape Google and return valid result", async () => {
-        const mockDate = new Date("10 Aug 2022");
+        const mockDate = new Date("10 Aug 2022 UTC");
         global.Date = jest.fn().mockImplementation(() => mockDate);
 
         // I'm not sure about making a real scraping,

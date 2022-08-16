@@ -20,12 +20,12 @@ describe("utils/date", () => {
 
     describe("getDate", () => {
         beforeAll(() => {
-            const mockDate = new Date("10 Aug 2022");
+            const mockDate = new Date("10 Aug 2022 UTC");
             global.Date = jest.fn().mockImplementation(() => mockDate);
         });
 
         it("should return current date in ISO format", () => {
-            expect(getDate(new Date())).toBe("2022-08-09T21:00:00.000Z");
+            expect(getDate(new Date())).toBe("2022-08-10T00:00:00.000Z");
         });
 
         afterAll(() => {
@@ -35,7 +35,7 @@ describe("utils/date", () => {
 
     describe("getCurrentYear", () => {
         beforeAll(() => {
-            const mockDate = new Date("10 Aug 2022");
+            const mockDate = new Date("10 Aug 2022 UTC");
             global.Date = jest.fn().mockImplementation(() => mockDate);
         });
 
@@ -50,14 +50,14 @@ describe("utils/date", () => {
 
     describe("formatDate", () => {
         it("should format date with known format", () => {
-            const formattedDate = formatDate("11 Sep 2022", "D MMM YYYY");
-            expect(formattedDate.toISOString()).toBe("2022-09-10T21:00:00.000Z");
+            const formattedDate = formatDate("11 Sep 2022 UTC", "D MMM YYYY");
+            expect(formattedDate.toISOString()).toBe("2022-09-11T00:00:00.000Z");
         });
     });
 
     describe("setYear", () => {
         it("should set year", () => {
-            const date = dateHelper("1 Sep 2021");
+            const date = dateHelper("1 Sep 2021 UTC");
             expect(setYear(date, 2022).year()).toBe(2022);
         });
     });
