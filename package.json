@@ -30,8 +30,8 @@
         "currency api"
     ],
     "dependencies": {
-        "dayjs": "^1.11.4",
-        "puppeteer": "^16.1.0"
+        "dayjs": "^1.11.5",
+        "puppeteer": "^16.2.0"
     },
     "devDependencies": {
         "@jest/globals": "^28.1.3",
