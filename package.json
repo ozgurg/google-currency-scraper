@@ -1,6 +1,6 @@
 {
     "name": "google-currency-scraper",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "description": "'google-currency-scraper' goes Google '1 USD to TRY' (for example) search result and scrape exchange rate and last updated date for you by using Puppeteer under the hood.",
     "license": "MIT",
     "type": "module",
@@ -30,8 +30,8 @@
         "currency api"
     ],
     "dependencies": {
-        "dayjs": "^1.11.4",
-        "puppeteer": "^16.1.0"
+        "dayjs": "^1.11.5",
+        "puppeteer": "^16.2.0"
     },
     "devDependencies": {
         "@jest/globals": "^28.1.3",
