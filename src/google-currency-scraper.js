@@ -32,10 +32,13 @@ const googleCurrencyScraper = async ({ from, to }) => {
 
     const page = await openNewPage(browser);
 
-    // To lighter page and faster load times, I emulate a mobile device
+    // To lighter page and faster load times, I emulate a mobile device.
+    // So why iPhone 7?
+    // It doesn't matter which one as long as it's a mobile device.
+    // That's why I chose iPhone 7 as I use it in real life :)
     await emulateDevice(page, "iPhone 7");
 
-    // To lighter page and faster load times, load only document
+    // To lighter page and faster load times, make sure load only document.
     await ensurePageLoadOnlyDocument(page);
 
     await goToGoogleCurrencySearchResult(page, { from, to });
