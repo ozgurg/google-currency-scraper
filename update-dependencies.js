@@ -1,8 +1,8 @@
 import { exec } from "child_process";
 
-import packageJson from "./package.json" assert { type: 'json' };
+import packageJson from "./package.json" assert { type: "json" };
 
-if(packageJson.dependencies !== undefined) {
+if (packageJson.dependencies !== undefined) {
     const dependencies = Object.keys(packageJson.dependencies);
 
     (async () => {
@@ -10,7 +10,7 @@ if(packageJson.dependencies !== undefined) {
     })();
 }
 
-if(packageJson.devDependencies !== undefined) {
+if (packageJson.devDependencies !== undefined) {
     const devDependencies = Object.keys(packageJson.devDependencies);
 
     (async () => {
