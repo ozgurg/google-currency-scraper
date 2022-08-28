@@ -3,7 +3,8 @@
         "**/*.js"
     ],
     "exclude": [
-        "**/*.test.js"
+        "**/*.test.js",
+        "update-dependencies.js"
     ],
     "compilerOptions": {
         "declaration": true,
