@@ -6,9 +6,9 @@ import { getDate, parseAndNormalizeDateInSearchResult } from "./utils/date.js";
 
 /**
  * @param {object} params
- * @param {CurrencyCode|string} params.from
- * @param {CurrencyCode|string} params.to
- * @returns {Promise<{from: CurrencyCode|string, to: CurrencyCode|string, rate: number, dateUpdated: string}>}
+ * @param {CurrencyCode | string} params.from
+ * @param {CurrencyCode | string} params.to
+ * @returns {Promise<{from: CurrencyCode | string, to: CurrencyCode | string, rate: number, dateUpdated: string}>}
  */
 const googleCurrencyScraper = async ({ from, to }) => {
     if (!isValidCurrencyCode(from)) {
@@ -55,9 +55,9 @@ const googleCurrencyScraper = async ({ from, to }) => {
 /**
  * @param {*} page
  * @param {object} params
- * @param {CurrencyCode|string} params.from
- * @param {CurrencyCode|string} params.to
- * @returns {Promise<*|null>}
+ * @param {CurrencyCode | string} params.from
+ * @param {CurrencyCode | string} params.to
+ * @returns {Promise<* | null>}
  */
 async function goToGoogleCurrencySearchResult(page, { from, to }) {
     const qs = objectToQueryString({
