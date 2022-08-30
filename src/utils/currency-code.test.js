@@ -26,7 +26,7 @@ describe("utils/currency-code", () => {
         });
 
         it("should return 'false' for invalid currency code", () => {
-            expect(isValidCurrencyCode("ABC")).toBe(false);
+            expect(isValidCurrencyCode("not-real")).toBe(false);
         });
     });
 });
