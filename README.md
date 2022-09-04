@@ -3,7 +3,7 @@
 
 # Google Currency Scraper
 
-`google-currency-scraper` goes Google '1 USD to TRY' (for example) search result and scrape exchange rate and last updated date for you by using [Puppeteer](https://github.com/puppeteer/puppeteer) under the hood.
+Scrape extremely up-to-date exchange rates from Google fast and free.
 
 ## Install
 

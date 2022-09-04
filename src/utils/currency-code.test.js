@@ -11,6 +11,13 @@ describe("utils/currency-code", () => {
                 expect(key).toBe(value);
             }
         });
+
+        it("should have uppercase key value pair", () => {
+            for (const [key, value] of Object.entries(CurrencyCode)) {
+                expect(key).toBe(key.toUpperCase());
+                expect(value).toBe(value.toUpperCase());
+            }
+        });
     });
 
     describe("isValidCurrencyCode", () => {
@@ -19,7 +26,7 @@ describe("utils/currency-code", () => {
         });
 
         it("should return 'false' for invalid currency code", () => {
-            expect(isValidCurrencyCode("ABC")).toBe(false);
+            expect(isValidCurrencyCode("not-real")).toBe(false);
         });
     });
 });

@@ -1,10 +1,11 @@
-// TODO: Make *'s in JSDoc better where possible
+// This file should not be used and will be removed in the next major release
 import puppeteer from "puppeteer";
 
 /**
  * `args` from https://www.bannerbear.com/blog/ways-to-speed-up-puppeteer-screenshots/.
  *
  * @returns {Promise<*>}
+ * @deprecated
  */
 const launchBrowser = () => {
     const args = [
@@ -54,12 +55,14 @@ const launchBrowser = () => {
 /**
  * @param {*} browser
  * @returns {Promise<*>}
+ * @deprecated
  */
 const openNewPage = browser => browser.newPage();
 
 /**
  * @param {*} browser
  * @returns {Promise<void>}
+ * @deprecated
  */
 const closeBrowser = browser => browser.close();
 
@@ -67,11 +70,13 @@ const closeBrowser = browser => browser.close();
  * @param {*} page
  * @param {string} device
  * @returns {Promise<void>}
+ * @deprecated
  */
 const emulateDevice = (page, device) => page.emulate(puppeteer.devices[device]);
 
 /**
  * @param {*} page
+ * @deprecated
  */
 const ensurePageLoadOnlyDocument = async page => {
     await page.setRequestInterception(true);
