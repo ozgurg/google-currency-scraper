@@ -2,8 +2,6 @@ import googleCurrencyScraper from "./google-currency-scraper.js";
 import { jest } from "@jest/globals";
 import { getDate } from "./utils/date.js";
 
-jest.setTimeout(20_000);
-
 describe("google-currency-scraper", () => {
     const date = Date;
 

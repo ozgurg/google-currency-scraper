@@ -1,8 +1,8 @@
-// TODO: Make *'s in JSDoc better where possible
-import { closeBrowser, emulateDevice, ensurePageLoadOnlyDocument, launchBrowser, openNewPage } from "./utils/browser.js";
 import { CurrencyCode, isValidCurrencyCode } from "./utils/currency-code.js";
 import { objectToQueryString } from "./utils/object-to-query-string.js";
 import { getDate, parseAndNormalizeDateInSearchResult } from "./utils/date.js";
+import { makeGetRequest } from "./utils/http-client.js";
+import { load } from "cheerio";
 
 /**
  * @param {object} params
@@ -28,62 +28,41 @@ const googleCurrencyScraper = async ({ from, to }) => {
         };
     }
 
-    const browser = await launchBrowser();
+    const url = createGoogleCurrencySearchResultUrl(from, to);
+    const config = {
+        headers: {
+            "Accept-Language": "en-US",
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"
+        }
+    };
+    const response = await makeGetRequest(url, config);
+    const $ = load(response);
 
-    const page = await openNewPage(browser);
+    const exchangeRateNode = $("[data-exchange-rate]:first-child");
+    const dateUpdatedNode = exchangeRateNode.next().find("span:not([class]):first-child");
 
-    // To lighter page and faster load times, I emulate a mobile device.
-    // So why iPhone 7?
-    // It doesn't matter which one as long as it's a mobile device.
-    // That's why I chose iPhone 7 as I use it in real life :)
-    await emulateDevice(page, "iPhone 7");
-
-    // To lighter page and faster load times, make sure load only document.
-    await ensurePageLoadOnlyDocument(page);
-
-    await goToGoogleCurrencySearchResult(page, { from, to });
-
-    const result = await parseResult(page);
-
-    await closeBrowser(browser);
+    const exchangeRate = parseFloat(exchangeRateNode.attr("data-exchange-rate"));
+    const dateUpdated = dateUpdatedNode.text();
 
     return {
         from,
         to,
-        rate: result.rate,
-        dateUpdated: parseAndNormalizeDateInSearchResult(result.dateUpdated)
+        rate: exchangeRate,
+        dateUpdated: parseAndNormalizeDateInSearchResult(dateUpdated)
     };
 };
 
 /**
- * @param {*} page
- * @param {object} params
- * @param {CurrencyCode | string} params.from
- * @param {CurrencyCode | string} params.to
- * @returns {Promise<* | null>}
+ * @param {CurrencyCode | string} from
+ * @param {CurrencyCode | string} to
+ * @returns {string}
  */
-async function goToGoogleCurrencySearchResult(page, { from, to }) {
+function createGoogleCurrencySearchResultUrl(from, to) {
     const qs = objectToQueryString({
         q: `1+${from}+to+${to}`,
         hl: "en" // Make sure to use the English language to avoid any weirdness
     });
-    return await page.goto(`https://www.google.com/search?${qs}`, {
-        waitUntil: "networkidle2"
-    });
-}
-
-/**
- * @param {*} page
- * @returns {Promise<{rate: number, dateUpdated: string}>}
- */
-async function parseResult(page) {
-    return page.$eval(
-        "[data-exchange-rate]",
-        element => ({
-            rate: parseFloat(element.getAttribute("data-exchange-rate")),
-            dateUpdated: element.nextSibling.querySelector("span").textContent
-        })
-    );
+    return `https://www.google.com/search?${qs}`;
 }
 
 export default googleCurrencyScraper;
