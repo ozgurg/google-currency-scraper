@@ -11,6 +11,8 @@ Scrape extremely up-to-date exchange rates from Google fast and free.
 npm install google-currency-scraper
 ```
 
+_This package is a [pure ESM package](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c)._
+
 ## Usage
 
 
@@ -29,8 +31,6 @@ const currency = await googleCurrencyScraper({
 //     dateUpdated: "2022-08-11T23:24:00.000Z"
 // }
 ```
-
-_This package is a [pure ESM package](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c)._
 
 ## API
 
