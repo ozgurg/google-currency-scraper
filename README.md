@@ -13,7 +13,6 @@ npm install google-currency-scraper
 
 ## Usage
 
-_First response might be slow._
 
 ```javascript
 import googleCurrencyScraper, { CurrencyCode } from "google-currency-scraper";
