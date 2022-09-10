@@ -11,9 +11,9 @@ Scrape extremely up-to-date exchange rates from Google fast and free.
 npm install google-currency-scraper
 ```
 
-## Usage
+_This package is a [pure ESM package](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c)._
 
-_First response might be slow._
+## Usage
 
 ```javascript
 import googleCurrencyScraper, { CurrencyCode } from "google-currency-scraper";
@@ -22,7 +22,6 @@ const currency = await googleCurrencyScraper({
     from: CurrencyCode.USD, // You can use "USD" as well
     to: CurrencyCode.TRY // You can use "TRY" as well
 });
-// Returns:
 // {
 //     from: "USD",
 //     to: "TRY",
@@ -31,18 +30,25 @@ const currency = await googleCurrencyScraper({
 // }
 ```
 
-_This package is a [pure ESM package](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c)._
-
 ## API
 
-### googleCurrencyScraper({ from, to })
+### googleCurrencyScraper(params) : object
 
-All params are required.
+#### params
 
-| Param | Type                                    |
-|-------|-----------------------------------------|
-| from  | <code>CurrencyCode &#124; string</code> |
-| to    | <code>CurrencyCode &#124; string</code> |
+Default: <code>{}</code>\
+Type: <code>object</code>\
+Required: Yes
+
+#### params.from
+
+Type: <code>CurrencyCode | string</code>\
+Required: Yes
+
+#### params.to
+
+Type: <code>CurrencyCode | string</code>\
+Required: Yes
 
 ### CurrencyCode
 

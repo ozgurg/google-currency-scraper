@@ -1,6 +1,6 @@
 {
     "name": "google-currency-scraper",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "description": "Scrape extremely up-to-date exchange rates from Google fast and free.",
     "license": "MIT",
     "type": "module",
@@ -10,8 +10,8 @@
         "url": "https://github.com/ozgurg/google-currency-scraper"
     },
     "scripts": {
-        "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose",
-        "test:coverage": "npm run test -- --coverage",
+        "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose --passWithNoTests",
+        "test:coverage": "npm run test -- --coverage --passWithNoTests",
         "lint:fix": "npm run lint -- --fix",
         "lint": "eslint --ext .js .",
         "lint-staged": "lint-staged",
@@ -34,7 +34,6 @@
         "node-fetch": "^3.2.10"
     },
     "devDependencies": {
-        "@jest/globals": "^28.1.3",
         "@types/jest": "^28.1.8",
         "eslint": "^8.23.0",
         "eslint-config-google": "^0.14.0",
