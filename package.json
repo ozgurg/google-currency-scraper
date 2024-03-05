@@ -15,7 +15,7 @@
         "lint:fix": "npm run lint -- --fix",
         "lint": "eslint --ext .js .",
         "lint-staged": "lint-staged",
-        "prepare": "husky install"
+        "prepare": "husky"
     },
     "author": {
         "email": "ozgurgorgulu54@gmail.com",
