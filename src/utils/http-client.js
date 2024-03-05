@@ -1,7 +1,3 @@
-// TODO: Replace "node-fetch" with "fetch" when its commonly available
-// https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
-import fetch from "node-fetch";
-
 /**
  * @param {string} url
  * @param {object} config
