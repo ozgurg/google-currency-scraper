@@ -1,7 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import { CurrencyCode, isValidCurrencyCode } from "./utils/currency-code.js";
 import { parseAndNormalizeDateInSearchResult } from "./utils/date.js";
-import { load } from "cheerio";
 
 /**
  * @param {object} params
@@ -48,13 +47,16 @@ const googleCurrencyScraper = async ({ from, to }) => {
  * @return {Promise<{exchangeRate: number, dateUpdated: string}>}
  */
 const parseExchangeRateFromResponseText = async responseText => {
-    const $ = load(responseText);
+    const exchangeRatePattern = /data-exchange-rate="([\d.]+)"/;
+    const exchangeRateMatch = responseText.match(exchangeRatePattern);
+    const exchangeRateNode = exchangeRateMatch ? exchangeRateMatch[1] : null;
 
-    const exchangeRateNode = $("[data-exchange-rate]:first-child");
-    const dateUpdatedNode = exchangeRateNode.next().find("span:not([class]):first-child");
+    const dateUpdatedPattern = /<span>(\w{3} \d{1,2}, \d{2}:\d{2} UTC) · <\/span>/;
+    const dateUpdatedMatch = responseText.match(dateUpdatedPattern);
+    const dateUpdatedNode = dateUpdatedMatch ? dateUpdatedMatch[1] : null;
 
-    const exchangeRate = parseFloat(exchangeRateNode.attr("data-exchange-rate"));
-    const dateUpdated = dateUpdatedNode.text();
+    const exchangeRate = parseFloat(exchangeRateNode);
+    const dateUpdated = dateUpdatedNode;
 
     return {
         exchangeRate,
