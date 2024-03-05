@@ -1,9 +1,9 @@
 ![Downloads](https://img.shields.io/npm/dm/google-currency-scraper)
 ![Version](https://img.shields.io/github/package-json/v/ozgurg/google-currency-scraper)
 
-# Google Currency Scraper
+# google-currency-scraper
 
-Scrape extremely up-to-date exchange rates from Google fast and free.
+Scrape extremely up-to-date exchange rates from Google fast and for free, with no external dependencies!
 
 ## Install
 
