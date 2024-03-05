@@ -1,7 +1,11 @@
 import googleCurrencyScraper from "./google-currency-scraper.js";
-import { jest } from "@jest/globals";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 describe("google-currency-scraper", () => {
+    beforeEach(() => {
+        vi.useFakeTimers();
+    });
+
     it("should throw an error if 'from' is invalid", async () => {
         await expect(async () => {
             await googleCurrencyScraper({
@@ -21,7 +25,7 @@ describe("google-currency-scraper", () => {
 
     it("should return '1' rate without scraping Google if 'from' and 'to' are the same", async () => {
         const mockDate = new Date("10 Aug 2022 UTC");
-        global.Date = jest.fn().mockImplementation(() => mockDate);
+        vi.setSystemTime(mockDate);
 
         const scraper = await googleCurrencyScraper({
             from: "USD",
@@ -49,5 +53,9 @@ describe("google-currency-scraper", () => {
         expect(currency.to).toBe("USD");
         expect(typeof currency.rate).toBe("number");
         expect(typeof currency.dateUpdated).toBe("string");
+    });
+
+    afterEach(() => {
+        vi.useRealTimers();
     });
 });
