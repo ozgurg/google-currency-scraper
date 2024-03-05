@@ -1,7 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import { CurrencyCode, isValidCurrencyCode } from "./utils/currency-code.js";
 import { parseAndNormalizeDateInSearchResult } from "./utils/date.js";
-import { makeGetRequest } from "./utils/http-client.js";
 import { load } from "cheerio";
 
 /**
@@ -29,14 +28,27 @@ const googleCurrencyScraper = async ({ from, to }) => {
     }
 
     const url = createGoogleCurrencySearchResultUrl(from, to);
-    const config = {
-        headers: {
-            "Accept-Language": "en-US",
-            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"
-        }
+    const responseText = await makeRequest(url);
+
+    const {
+        exchangeRate,
+        dateUpdated
+    } = await parseExchangeRateFromResponseText(responseText);
+
+    return {
+        from,
+        to,
+        rate: exchangeRate,
+        dateUpdated: parseAndNormalizeDateInSearchResult(dateUpdated).toISOString()
     };
-    const response = await makeGetRequest(url, config);
-    const $ = load(response);
+};
+
+/**
+ * @param {string} responseText
+ * @return {Promise<{exchangeRate: number, dateUpdated: string}>}
+ */
+const parseExchangeRateFromResponseText = async responseText => {
+    const $ = load(responseText);
 
     const exchangeRateNode = $("[data-exchange-rate]:first-child");
     const dateUpdatedNode = exchangeRateNode.next().find("span:not([class]):first-child");
@@ -45,11 +57,25 @@ const googleCurrencyScraper = async ({ from, to }) => {
     const dateUpdated = dateUpdatedNode.text();
 
     return {
-        from,
-        to,
-        rate: exchangeRate,
-        dateUpdated: parseAndNormalizeDateInSearchResult(dateUpdated).toISOString()
+        exchangeRate,
+        dateUpdated
     };
+};
+
+/**
+ * @param {string} url
+ * @return {Promise<string>}
+ */
+const makeRequest = async url => {
+    const config = {
+        method: "GET",
+        headers: {
+            "Accept-Language": "en-US",
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"
+        }
+    };
+    const response = await fetch(url, config);
+    return response.text();
 };
 
 /**
