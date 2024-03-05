@@ -7,38 +7,38 @@ const dateHelper = dayjs;
 
 /**
  * @param {Date} date
- * @returns {string}
+ * @return {string}
  */
 const getDate = (date = new Date()) => dateHelper(date).toISOString();
 
 /**
- * @returns {number}
+ * @return {number}
  */
 const getCurrentYear = () => dateHelper().year();
 
 /**
  * @param {string} dateString
  * @param {string} format
- * @returns {DateHelper}
+ * @return {DateHelper}
  */
 const formatDate = (dateString, format) => dateHelper(dateString, format, true);
 
 /**
  * @param {DateHelper} dateHelperInstance
  * @param {number} year
- * @returns {DateHelper}
+ * @return {DateHelper}
  */
 const setYear = (dateHelperInstance, year) => dateHelperInstance.year(year);
 
 /**
  * @param {string} dateString
- * @returns {string}
+ * @return {string}
  */
 const cleanDateInSearchResult = dateString => dateString.replace(" · ", "");
 
 /**
  * @param {string} dateString
- * @returns {string}
+ * @return {string}
  */
 const parseAndNormalizeDateInSearchResult = dateString => {
     const searchResultFormat = "MMM DD, HH:mm UTC";

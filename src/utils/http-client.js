@@ -1,7 +1,7 @@
 /**
  * @param {string} url
  * @param {object} config
- * @returns {Promise<string>}
+ * @return {Promise<string>}
  */
 const makeGetRequest = async (url, config) => {
     const response = await fetch(url, {

@@ -189,7 +189,7 @@ const CurrencyCode = {
 
 /**
  * @param {CurrencyCode | string} code
- * @returns {boolean}
+ * @return {boolean}
  */
 const isValidCurrencyCode = code => code in CurrencyCode;
 

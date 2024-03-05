@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import { CurrencyCode, isValidCurrencyCode } from "./utils/currency-code.js";
 import { getDate, parseAndNormalizeDateInSearchResult } from "./utils/date.js";
 import { makeGetRequest } from "./utils/http-client.js";
@@ -54,7 +55,7 @@ const googleCurrencyScraper = async ({ from, to }) => {
 /**
  * @param {CurrencyCode | string} from
  * @param {CurrencyCode | string} to
- * @returns {string}
+ * @return {string}
  */
 function createGoogleCurrencySearchResultUrl(from, to) {
     const q = `1+${from}+to+${to}`;
