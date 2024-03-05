@@ -1,5 +1,4 @@
 import { CurrencyCode, isValidCurrencyCode } from "./utils/currency-code.js";
-import { objectToQueryString } from "./utils/object-to-query-string.js";
 import { getDate, parseAndNormalizeDateInSearchResult } from "./utils/date.js";
 import { makeGetRequest } from "./utils/http-client.js";
 import { load } from "cheerio";
@@ -58,11 +57,9 @@ const googleCurrencyScraper = async ({ from, to }) => {
  * @returns {string}
  */
 function createGoogleCurrencySearchResultUrl(from, to) {
-    const qs = objectToQueryString({
-        q: `1+${from}+to+${to}`,
-        hl: "en" // Make sure to use the English language to avoid any weirdness
-    });
-    return `https://www.google.com/search?${qs}`;
+    const q = `1+${from}+to+${to}`;
+    const hl = "en"; // Make sure to use English to avoid any unexpected issues.
+    return `https://www.google.com/search?q=${q}&hl=${hl}`;
 }
 
 export default googleCurrencyScraper;
