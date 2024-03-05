@@ -72,7 +72,7 @@ describe("utils/date", () => {
     describe("parseAndNormalizeDateInSearchResult", () => {
         it("should parse and normalize date in search result", () => {
             const dateString = "Sep 01, 21:15 UTC";
-            expect(parseAndNormalizeDateInSearchResult(dateString)).toBe("2023-09-01T21:15:00.000Z");
+            expect(parseAndNormalizeDateInSearchResult(dateString)).toBe("2024-09-01T21:15:00.000Z");
         });
     });
 });
