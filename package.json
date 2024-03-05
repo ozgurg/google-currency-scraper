@@ -10,7 +10,7 @@
         "url": "https://github.com/ozgurg/google-currency-scraper"
     },
     "scripts": {
-        "test": "vitest",
+        "test": "vitest run",
         "lint:fix": "npm run lint -- --fix",
         "lint": "eslint --ext .js .",
         "lint-staged": "lint-staged",
