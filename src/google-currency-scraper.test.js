@@ -1,10 +1,7 @@
 import googleCurrencyScraper from "./google-currency-scraper.js";
 import { jest } from "@jest/globals";
-import { getDate } from "./utils/date.js";
 
 describe("google-currency-scraper", () => {
-    const date = Date;
-
     it("should throw an error if 'from' is invalid", async () => {
         await expect(async () => {
             await googleCurrencyScraper({
@@ -34,18 +31,13 @@ describe("google-currency-scraper", () => {
             from: "USD",
             to: "USD",
             rate: 1,
-            dateUpdated: getDate()
+            dateUpdated: mockDate.toISOString()
         });
 
         // TODO: Make sure the browser is not launched
-
-        global.Date = date;
     });
 
     it("should scrape Google and return valid result", async () => {
-        const mockDate = new Date("10 Aug 2022 UTC");
-        global.Date = jest.fn().mockImplementation(() => mockDate);
-
         // I'm not sure about making a real scraping,
         // but I think it will help me with the changes
         // Google can make to its HTML structure in the future
@@ -57,8 +49,5 @@ describe("google-currency-scraper", () => {
         expect(currency.to).toBe("USD");
         expect(typeof currency.rate).toBe("number");
         expect(typeof currency.dateUpdated).toBe("string");
-        // TODO: Validate date
-
-        global.Date = date;
     });
 });

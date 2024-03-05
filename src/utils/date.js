@@ -1,35 +1,3 @@
-import dayjs from "dayjs";
-
-/**
- * @typedef {dayjs.Dayjs} DateHelper
- */
-const dateHelper = dayjs;
-
-/**
- * @param {Date} date
- * @return {string}
- */
-const getDate = (date = new Date()) => dateHelper(date).toISOString();
-
-/**
- * @return {number}
- */
-const getCurrentYear = () => dateHelper().year();
-
-/**
- * @param {string} dateString
- * @param {string} format
- * @return {DateHelper}
- */
-const formatDate = (dateString, format) => dateHelper(dateString, format, true);
-
-/**
- * @param {DateHelper} dateHelperInstance
- * @param {number} year
- * @return {DateHelper}
- */
-const setYear = (dateHelperInstance, year) => dateHelperInstance.year(year);
-
 /**
  * @param {string} dateString
  * @return {string}
@@ -37,23 +5,32 @@ const setYear = (dateHelperInstance, year) => dateHelperInstance.year(year);
 const cleanDateInSearchResult = dateString => dateString.replace(" · ", "");
 
 /**
+ * Parse dates formatted as "MMM DD, HH:mm UTC" in search results into the Date class.
+ *
  * @param {string} dateString
- * @return {string}
+ * @return {Date}
  */
 const parseAndNormalizeDateInSearchResult = dateString => {
-    const searchResultFormat = "MMM DD, HH:mm UTC";
-    const cleanedDate = cleanDateInSearchResult(dateString);
-    const formattedDate = formatDate(cleanedDate, searchResultFormat);
-    const normalizedDate = setYear(formattedDate, getCurrentYear());
-    return normalizedDate.toISOString();
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+    const parts = dateString.split(" ");
+
+    const month = months.indexOf(parts[0]);
+    const day = parseInt(parts[1]);
+    const [hour, minute] = parts[2].split(":").map(part => parseInt(part));
+
+    const date = new Date();
+    date.setUTCMonth(month);
+    date.setUTCDate(day);
+    date.setUTCHours(hour);
+    date.setUTCMinutes(minute);
+    date.setUTCSeconds(0);
+    date.setUTCMilliseconds(0);
+
+    return date;
 };
 
 export {
-    dateHelper,
-    getDate,
-    getCurrentYear,
-    formatDate,
-    setYear,
     cleanDateInSearchResult,
     parseAndNormalizeDateInSearchResult
 };

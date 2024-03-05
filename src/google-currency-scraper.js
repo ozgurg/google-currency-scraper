@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import { CurrencyCode, isValidCurrencyCode } from "./utils/currency-code.js";
-import { getDate, parseAndNormalizeDateInSearchResult } from "./utils/date.js";
+import { parseAndNormalizeDateInSearchResult } from "./utils/date.js";
 import { makeGetRequest } from "./utils/http-client.js";
 import { load } from "cheerio";
 
@@ -24,7 +24,7 @@ const googleCurrencyScraper = async ({ from, to }) => {
             from,
             to,
             rate: 1,
-            dateUpdated: getDate()
+            dateUpdated: new Date().toISOString()
         };
     }
 
@@ -48,7 +48,7 @@ const googleCurrencyScraper = async ({ from, to }) => {
         from,
         to,
         rate: exchangeRate,
-        dateUpdated: parseAndNormalizeDateInSearchResult(dateUpdated)
+        dateUpdated: parseAndNormalizeDateInSearchResult(dateUpdated).toISOString()
     };
 };
 
