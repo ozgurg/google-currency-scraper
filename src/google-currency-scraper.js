@@ -88,7 +88,7 @@ const makeRequest = async url => {
  */
 function createGoogleCurrencySearchResultUrl(from, to) {
     const q = `1+${from}+to+${to}`;
-    const hl = "en"; // Make sure to use English to avoid any unexpected issues.
+    const hl = "en-TR"; // Make sure to use English to avoid any unexpected issues.
     return `https://www.google.com/search?q=${q}&hl=${hl}`;
 }
 
