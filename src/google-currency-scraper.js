@@ -53,7 +53,7 @@ const parseExchangeRateFromResponseText = async responseText => {
 
     const dateUpdatedPattern = /<span>(\w{3} \d{1,2}, \d{2}:\d{2} UTC) · <\/span>/;
     const dateUpdatedMatch = responseText.match(dateUpdatedPattern);
-    console.log(dateUpdatedMatch);
+    console.log(responseText);
     const dateUpdatedNode = dateUpdatedMatch ? dateUpdatedMatch[1] : null;
 
     const exchangeRate = parseFloat(exchangeRateNode);
