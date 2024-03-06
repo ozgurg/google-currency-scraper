@@ -73,7 +73,7 @@ const makeRequest = async url => {
     const config = {
         method: "GET",
         headers: {
-            "Accept-Language": "en-US,en;q=1.0",
+            "Accept-Language": "tr-TR, tr;q=0.9",
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"
         }
     };
@@ -91,7 +91,7 @@ function createGoogleCurrencySearchResultUrl(from, to) {
     const cr = "countryUS";
     const lr = "lang_en";
     const hl = "en-US"; // Make sure to use English to avoid any unexpected issues.
-    return `https://www.google.com/search?start=0&num=10&q=1+usd+to+try&cr=countryUS&lr=lang_en&client=google-csbe`;
+    return `https://www.google.com/search?start=0&num=10&q=1+usd+to+try&cr=countryTR&lr=lang_tr&client=google-csbe`;
 }
 
 export default googleCurrencyScraper;
