@@ -13,6 +13,9 @@ const cleanDateInSearchResult = dateString => dateString.replace(" · ", "");
 const parseAndNormalizeDateInSearchResult = dateString => {
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
+    console.log(typeof dateString);
+    console.log(dateString);
+
     const parts = dateString.split(" ");
 
     const month = months.indexOf(parts[0]);
