@@ -73,7 +73,7 @@ const makeRequest = async url => {
     const config = {
         method: "GET",
         headers: {
-            "Accept-Language": "en-US",
+            "Accept-Language": "en-TR",
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"
         }
     };
