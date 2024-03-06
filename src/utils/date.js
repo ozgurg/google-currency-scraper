@@ -11,26 +11,29 @@ const cleanDateInSearchResult = dateString => dateString.replace(" · ", "");
  * @return {Date}
  */
 const parseAndNormalizeDateInSearchResult = dateString => {
-    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    try {
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-    console.log(typeof dateString);
-    console.log(dateString);
+        const parts = dateString.split(" ");
 
-    const parts = dateString.split(" ");
+        const month = months.indexOf(parts[0]);
+        const day = parseInt(parts[1]);
+        const [hour, minute] = parts[2].split(":").map(part => parseInt(part));
 
-    const month = months.indexOf(parts[0]);
-    const day = parseInt(parts[1]);
-    const [hour, minute] = parts[2].split(":").map(part => parseInt(part));
+        const date = new Date();
+        date.setUTCMonth(month);
+        date.setUTCDate(day);
+        date.setUTCHours(hour);
+        date.setUTCMinutes(minute);
+        date.setUTCSeconds(0);
+        date.setUTCMilliseconds(0);
 
-    const date = new Date();
-    date.setUTCMonth(month);
-    date.setUTCDate(day);
-    date.setUTCHours(hour);
-    date.setUTCMinutes(minute);
-    date.setUTCSeconds(0);
-    date.setUTCMilliseconds(0);
-
-    return date;
+        return date;
+    } catch (e) {
+        console.error(typeof dateString);
+        console.error(dateString);
+        console.error(e);
+    }
 };
 
 export {
