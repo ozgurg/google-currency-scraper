@@ -34,6 +34,11 @@ const googleCurrencyScraper = async ({ from, to }) => {
         dateUpdated
     } = await parseExchangeRateFromResponseText(responseText);
 
+    console.log({
+        exchangeRate,
+        dateUpdated
+    });
+
     return {
         from,
         to,
