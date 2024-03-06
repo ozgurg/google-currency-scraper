@@ -33,6 +33,7 @@ const parseAndNormalizeDateInSearchResult = dateString => {
         console.error(typeof dateString);
         console.error(dateString);
         console.error(e);
+        return new Date();
     }
 };
 
