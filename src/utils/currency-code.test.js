@@ -1,4 +1,5 @@
 import { CurrencyCode, isValidCurrencyCode } from "./currency-code.js";
+import { describe, expect, it } from "vitest";
 
 describe("utils/currency-code", () => {
     describe("CurrencyCode", () => {

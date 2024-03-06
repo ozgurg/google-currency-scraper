@@ -1,8 +1,6 @@
+// eslint-disable-next-line no-unused-vars
 import { CurrencyCode, isValidCurrencyCode } from "./utils/currency-code.js";
-import { objectToQueryString } from "./utils/object-to-query-string.js";
-import { getDate, parseAndNormalizeDateInSearchResult } from "./utils/date.js";
-import { makeGetRequest } from "./utils/http-client.js";
-import { load } from "cheerio";
+import { parseAndNormalizeDateInSearchResult } from "./utils/date.js";
 
 /**
  * @param {object} params
@@ -24,45 +22,73 @@ const googleCurrencyScraper = async ({ from, to }) => {
             from,
             to,
             rate: 1,
-            dateUpdated: getDate()
+            dateUpdated: new Date().toISOString()
         };
     }
 
     const url = createGoogleCurrencySearchResultUrl(from, to);
-    const config = {
-        headers: {
-            "Accept-Language": "en-US",
-            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"
-        }
-    };
-    const response = await makeGetRequest(url, config);
-    const $ = load(response);
+    const responseText = await makeRequest(url);
 
-    const exchangeRateNode = $("[data-exchange-rate]:first-child");
-    const dateUpdatedNode = exchangeRateNode.next().find("span:not([class]):first-child");
-
-    const exchangeRate = parseFloat(exchangeRateNode.attr("data-exchange-rate"));
-    const dateUpdated = dateUpdatedNode.text();
+    const {
+        exchangeRate,
+        dateUpdated
+    } = await parseExchangeRateFromResponseText(responseText);
 
     return {
         from,
         to,
         rate: exchangeRate,
-        dateUpdated: parseAndNormalizeDateInSearchResult(dateUpdated)
+        dateUpdated: parseAndNormalizeDateInSearchResult(dateUpdated).toISOString()
     };
+};
+
+/**
+ * @param {string} responseText
+ * @return {Promise<{exchangeRate: number, dateUpdated: string}>}
+ */
+const parseExchangeRateFromResponseText = async responseText => {
+    const exchangeRatePattern = /data-exchange-rate="([\d.]+)"/;
+    const exchangeRateMatch = responseText.match(exchangeRatePattern);
+    const exchangeRateNode = exchangeRateMatch ? exchangeRateMatch[1] : null;
+
+    const dateUpdatedPattern = /<span>(\w{3} \d{1,2}, \d{2}:\d{2} UTC) · <\/span>/;
+    const dateUpdatedMatch = responseText.match(dateUpdatedPattern);
+    const dateUpdatedNode = dateUpdatedMatch ? dateUpdatedMatch[1] : null;
+
+    const exchangeRate = parseFloat(exchangeRateNode);
+    const dateUpdated = dateUpdatedNode;
+
+    return {
+        exchangeRate,
+        dateUpdated
+    };
+};
+
+/**
+ * @param {string} url
+ * @return {Promise<string>}
+ */
+const makeRequest = async url => {
+    const config = {
+        method: "GET",
+        headers: {
+            "Accept-Language": "en-US",
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36"
+        }
+    };
+    const response = await fetch(url, config);
+    return response.text();
 };
 
 /**
  * @param {CurrencyCode | string} from
  * @param {CurrencyCode | string} to
- * @returns {string}
+ * @return {string}
  */
 function createGoogleCurrencySearchResultUrl(from, to) {
-    const qs = objectToQueryString({
-        q: `1+${from}+to+${to}`,
-        hl: "en" // Make sure to use the English language to avoid any weirdness
-    });
-    return `https://www.google.com/search?${qs}`;
+    const q = `1+${from}+to+${to}`;
+    const hl = "en"; // Make sure to use English to avoid any unexpected issues.
+    return `https://www.google.com/search?q=${q}&hl=${hl}`;
 }
 
 export default googleCurrencyScraper;
