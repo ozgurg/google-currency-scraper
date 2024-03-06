@@ -91,7 +91,7 @@ function createGoogleCurrencySearchResultUrl(from, to) {
     const cr = "countryUS";
     const lr = "lang_en";
     const hl = "en-US"; // Make sure to use English to avoid any unexpected issues.
-    return `https://www.google.com/search?start=0&num=10&q=1+usd+to+try&cr=countryTR&lr=lang_tr&client=google-csbe`;
+    return `https://www.google.com/search?start=0&num=10&q=1+usd+to+try&cr=countryTR&lr=lang_tr&client=google-csbe&hl=tr`;
 }
 
 export default googleCurrencyScraper;
