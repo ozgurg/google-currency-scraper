@@ -3,7 +3,7 @@
 
 # google-currency-scraper
 
-Scrape extremely up-to-date exchange rates from Google fast and for free, with no external dependencies!
+Scrape extremely up-to-date exchange rates from Google fast and for free, with only one external dependency.
 
 ## Install
 
@@ -23,8 +23,8 @@ const currency = await googleCurrencyScraper({
 // {
 //     from: "USD",
 //     to: "TRY",
-//     rate: 17.9539,
-//     dateUpdated: "2022-08-11T23:24:00.000Z"
+//     rate: 32.2434,
+//     dateUpdated: "May 19, 13:59 UTC"
 // }
 ```
 

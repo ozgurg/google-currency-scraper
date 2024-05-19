@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import { CurrencyCode, isValidCurrencyCode } from "./utils/currency-code.js";
-import { parseAndNormalizeDateInSearchResult } from "./utils/date.js";
+import { cleanDateInSearchResult } from "./utils/date.js";
+import { load } from "cheerio";
 
 /**
  * @param {object} params
@@ -32,13 +33,13 @@ const googleCurrencyScraper = async ({ from, to }) => {
     const {
         exchangeRate,
         dateUpdated
-    } = await parseExchangeRateFromResponseText(responseText);
+    } = parseExchangeRateFromResponseText(responseText);
 
     return {
         from,
         to,
         rate: exchangeRate,
-        dateUpdated: parseAndNormalizeDateInSearchResult(dateUpdated).toISOString()
+        dateUpdated
     };
 };
 
@@ -46,17 +47,18 @@ const googleCurrencyScraper = async ({ from, to }) => {
  * @param {string} responseText
  * @return {Promise<{exchangeRate: number, dateUpdated: string}>}
  */
-const parseExchangeRateFromResponseText = async responseText => {
-    const exchangeRatePattern = /data-exchange-rate="([\d.]+)"/;
-    const exchangeRateMatch = responseText.match(exchangeRatePattern);
-    const exchangeRateNode = exchangeRateMatch ? exchangeRateMatch[1] : null;
+const parseExchangeRateFromResponseText = responseText => {
+    // I replaced Cheerio with regular expression, but Google uses a different date format depending on the requester's language, region, and similar factors.
+    // I cannot find a pattern to match every date format that Google uses to parse.
+    // So I reverted to Cheerio.
 
-    const dateUpdatedPattern = /<span>(\w{3} \d{1,2}, \d{2}:\d{2} UTC) · <\/span>/;
-    const dateUpdatedMatch = responseText.match(dateUpdatedPattern);
-    const dateUpdatedNode = dateUpdatedMatch ? dateUpdatedMatch[1] : null;
+    const $ = load(responseText);
 
-    const exchangeRate = parseFloat(exchangeRateNode);
-    const dateUpdated = dateUpdatedNode;
+    const exchangeRateNode = $("[data-exchange-rate]:first-child");
+    const dateUpdatedNode = exchangeRateNode.next().find("span:not([class]):first-child");
+
+    const exchangeRate = parseFloat(exchangeRateNode.attr("data-exchange-rate"));
+    const dateUpdated = cleanDateInSearchResult(dateUpdatedNode.text());
 
     return {
         exchangeRate,
