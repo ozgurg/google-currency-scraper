@@ -1,7 +1,7 @@
 {
     "name": "google-currency-scraper",
     "version": "2.0.0",
-    "description": "Scrape extremely up-to-date exchange rates from Google fast and for free, with no external dependencies!",
+    "description": "Scrape extremely up-to-date exchange rates from Google fast and for free, with only one external dependency.",
     "license": "MIT",
     "type": "module",
     "exports": "./index.js",
