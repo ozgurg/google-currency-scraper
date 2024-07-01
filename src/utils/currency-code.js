@@ -110,6 +110,7 @@ const CurrencyCode = {
     NAD: "NAD",
     NGN: "NGN",
     NIO: "NIO",
+    NIS: "NIS",
     NOK: "NOK",
     NPR: "NPR",
     NZD: "NZD",
