@@ -1,10 +1,8 @@
 /**
- * ISO 4217 currency codes
- * Source: https://en.wikipedia.org/wiki/ISO_4217
- *
  * @typedef {Object<string, string>} CurrencyCode
  */
 const CurrencyCode = {
+    // https://en.wikipedia.org/wiki/ISO_4217#List_of_ISO_4217_currency_codes
     AED: "AED",
     AFN: "AFN",
     ALL: "ALL",
@@ -184,7 +182,24 @@ const CurrencyCode = {
     YER: "YER",
     ZAR: "ZAR",
     ZMW: "ZMW",
-    ZWL: "ZWL"
+    ZWL: "ZWL",
+
+    // https://en.wikipedia.org/wiki/ISO_4217#Non_ISO_4217_currencies
+    BDS: "BDS",
+    CNH: "CNH",
+    CNT: "CNT",
+    GGP: "GGP",
+    IMP: "IMP",
+    JEP: "JEP",
+    KID: "KID",
+    NIS: "NIS",
+    NTD: "NTD",
+    PRB: "PRB",
+    SLS: "SLS",
+    STG: "STG",
+    RMB: "RMB",
+    TVD: "TVD",
+    ZWB: "ZWB"
 };
 
 /**
